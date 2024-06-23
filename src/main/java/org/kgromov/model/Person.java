@@ -16,4 +16,7 @@ public class Person extends PanacheEntity {
 	@NotBlank
 	public String lastName;
 
+	public boolean isNew() {
+		return this.id == null;
+	}
 }

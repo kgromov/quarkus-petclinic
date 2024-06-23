@@ -4,54 +4,31 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import org.kgromov.model.Person;
+import org.kgromov.system.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
-@Entity
-@Table(name = "owners")
+
+@Entity(name = "owners")
 public class Owner extends Person {
 
 	@Column(name = "address")
 	@NotBlank
-	private String address;
+	public String address;
 
 	@Column(name = "city")
 	@NotBlank
-	private String city;
+	public String city;
 
 	@Column(name = "telephone")
 	@NotBlank
 	@Pattern(regexp = "\\d{10}", message = "Telephone must be a 10-digit number")
-	private String telephone;
+	public String telephone;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
 	@OrderBy("name")
 	private List<Pet> pets = new ArrayList<>();
-
-	public String getAddress() {
-		return this.address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getCity() {
-		return this.city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getTelephone() {
-		return this.telephone;
-	}
-
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
-	}
 
 	public List<Pet> getPets() {
 		return this.pets;
@@ -107,33 +84,33 @@ public class Owner extends Person {
 		return null;
 	}
 
-	/*@Override
-	public String toString() {
-		return new ToStringCreator(this).append("id", this.getId())
-			.append("new", this.isNew())
-			.append("lastName", this.getLastName())
-			.append("firstName", this.getFirstName())
-			.append("address", this.address)
-			.append("city", this.city)
-			.append("telephone", this.telephone)
-			.toString();
-	}
-
-	*//**
+	/**
 	 * Adds the given {@link Visit} to the {@link Pet} with the given identifier.
 	 * @param petId the identifier of the {@link Pet}, must not be {@literal null}.
 	 * @param visit the visit to add, must not be {@literal null}.
-	 *//*
-	public void addVisit(Integer petId, Visit visit) {
+	 */
+	public void addVisit(Long petId, Visit visit) {
 
-		Assert.notNull(petId, "Pet identifier must not be null!");
-		Assert.notNull(visit, "Visit must not be null!");
+		Utils.notNull(petId, "Pet identifier must not be null!");
+		Utils.notNull(visit, "Visit must not be null!");
 
-		Pet pet = getPet(petId);
+		Pet pet = this.getPet(petId);
 
-		Assert.notNull(pet, "Invalid Pet identifier!");
+		Utils.notNull(pet, "Invalid Pet identifier!");
 
 		pet.addVisit(visit);
-	}*/
+	}
+
+	@Override
+	public String toString() {
+		return "Owner{" +
+				"new='" + this.isNew() + '\'' +
+				", firstName='" + firstName + '\'' +
+				", lastName='" + lastName + '\'' +
+				", address='" + address + '\'' +
+				", city='" + city + '\'' +
+				", telephone='" + telephone + '\'' +
+				'}';
+	}
 
 }

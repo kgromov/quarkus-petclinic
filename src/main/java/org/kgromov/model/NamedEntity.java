@@ -18,5 +18,4 @@ public class NamedEntity extends PanacheEntity {
 	public boolean isNew() {
 		return this.id == null;
 	}
-
 }

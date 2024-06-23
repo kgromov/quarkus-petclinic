@@ -8,8 +8,7 @@ import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Entity
-@Table(name = "pets")
+@Entity(name = "pets")
 public class Pet extends NamedEntity {
 
 	@Column(name = "birth_date")
@@ -46,7 +45,7 @@ public class Pet extends NamedEntity {
 	}
 
 	public void addVisit(Visit visit) {
-		getVisits().add(visit);
+		this.visits.add(visit);
 	}
 
 }

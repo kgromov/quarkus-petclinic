@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "vets")
+@Cacheable
 public class Vet extends Person {
 
 	@ManyToMany(fetch = FetchType.EAGER)
